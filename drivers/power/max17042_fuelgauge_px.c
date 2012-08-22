@@ -633,7 +633,7 @@ void fg_periodic_read(void)
 	getnstimeofday(&ts);
 	rtc_time_to_tm(ts.tv_sec, &tm);
 
-	pr_info("[MAX17042] %d/%d/%d %02d:%02d,",
+	pr_debug("[MAX17042] %d/%d/%d %02d:%02d,",
 		tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900,
 		tm.tm_hour, tm.tm_min);
 
@@ -641,7 +641,7 @@ void fg_periodic_read(void)
 		for (reg = 0; reg < 0x10; reg++)
 			data[reg] = fg_read_register(reg + i * 0x10);
 
-		pr_info("%04xh,%04xh,%04xh,%04xh,%04xh,%04xh,%04xh,%04xh,\n"
+		pr_debug("%04xh,%04xh,%04xh,%04xh,%04xh,%04xh,%04xh,%04xh,\n"
 			"%04xh,%04xh,%04xh,%04xh,%04xh,%04xh,%04xh,%04xh,",
 			data[0x00], data[0x01], data[0x02], data[0x03],
 			data[0x04], data[0x05], data[0x06], data[0x07],
@@ -651,7 +651,7 @@ void fg_periodic_read(void)
 			i = 13;
 		msleep(20);
 	}
-	pr_info("\n");
+	pr_debug("\n");
 }
 
 static void fg_read_model_data(void)
