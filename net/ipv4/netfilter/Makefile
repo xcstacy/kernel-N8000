@@ -3,6 +3,7 @@
 #
 
 # objects for l3 independent conntrack
+EXTRA_CFLAGS		+= -Wno-error=address
 nf_conntrack_ipv4-y	:=  nf_conntrack_l3proto_ipv4.o nf_conntrack_proto_icmp.o
 ifeq ($(CONFIG_NF_CONNTRACK_PROC_COMPAT),y)
 ifeq ($(CONFIG_PROC_FS),y)

@@ -6,6 +6,8 @@
 
 OBJS		=
 
+plus_sec :=	$(call as-instr,.arch_extension sec,+sec)
+
 # Ensure that mmcif loader code appears early in the image
 # to minimise that number of bocks that have to be read in
 # order to load it.
@@ -101,7 +103,7 @@ KBUILD_CFLAGS = $(subst -pg, , $(ORIG_CFLAGS))
 endif
 
 ccflags-y := -fpic -fno-builtin
-asflags-y := -Wa,-march=all
+asflags-y := -Wa,-march=armv7-a$(plus_sec)
 
 # Supply ZRELADDR to the decompressor via a linker symbol.
 ifneq ($(CONFIG_AUTO_ZRELADDR),y)

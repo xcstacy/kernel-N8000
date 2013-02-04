@@ -69,7 +69,7 @@ static int irda_fw_update(struct ir_remocon_data *ir_data)
 {
 	struct ir_remocon_data *data = ir_data;
 	struct i2c_client *client = data->client;
-	int i, k, ret, ret2, checksum, checksum2;
+	int i, k, ret, ret2, checksum, checksum2 = 0;
 	u8 buf_ir_test[8];
 
 	msleep(20);
@@ -425,8 +425,6 @@ static ssize_t remocon_show(struct device *dev, struct device_attribute *attr,
 static ssize_t remocon_ack(struct device *dev, struct device_attribute *attr,
 		char *buf)
 {
-	struct ir_remocon_data *data = dev_get_drvdata(dev);
-
 	printk(KERN_INFO "%s : ack_number = %d\n", __func__, ack_number);
 
 	if (ack_number == 6)

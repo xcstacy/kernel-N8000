@@ -2,6 +2,8 @@
 # Makefile for the Linux Traffic Control Unit.
 #
 
+EXTRA_CFLAGS	+= -Wno-error=address
+
 obj-y	:= sch_generic.o sch_mq.o
 
 obj-$(CONFIG_NET_SCHED)		+= sch_api.o sch_blackhole.o

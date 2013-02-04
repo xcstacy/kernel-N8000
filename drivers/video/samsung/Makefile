@@ -15,6 +15,7 @@ obj-$(CONFIG_FB_S5P_WA101S)	+= s3cfb_wa101s.o
 obj-$(CONFIG_FB_S5P_AMS369FG06)	+= s3cfb_ams369fg06.o
 obj-$(CONFIG_FB_S5P_LD9040)	+= ld9040.o smart_dimming_ld9042.o
 obj-$(CONFIG_FB_S5P_NT35560)	+= nt35560.o
+CFLAGS_mdnie.o			+= -Wno-error=enum-compare
 obj-$(CONFIG_FB_S5P_MDNIE)      += s3cfb_mdnie.o s3cfb_ielcd.o mdnie.o mdnie_tunning.o
 obj-$(CONFIG_FB_S5P_LMS501KF03)	+= s3cfb_lms501kf03.o
 obj-$(CONFIG_FB_S5P_LMS501XX)	+= s3cfb_lms501xx.o

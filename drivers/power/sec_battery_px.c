@@ -460,7 +460,7 @@ enum charger_type sec_get_dedicted_charger_type(struct battery_data *battery)
 	int accessory_line;
 #if defined(P4_CHARGING_FEATURE_01)
 	int online_val;
-	int i;
+	int i = 0;
 #endif
 	mutex_lock(&battery->work_lock);
 

@@ -127,6 +127,8 @@ static struct modem_io_t umts_io_devices[] = {
 
 /* To get modem state, register phone active irq using resource */
 static struct resource umts_modem_res[] = {
+	/* avoid "array subscript out of bounds" error */
+	{ },
 };
 
 static int umts_link_ldo_enble(bool enable)

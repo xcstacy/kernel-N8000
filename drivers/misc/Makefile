@@ -87,4 +87,5 @@ obj-$(CONFIG_SLP_LOWMEM_NOTIFY)	+= slp_lowmem_notify.o
 obj-$(CONFIG_MACH_M0_CTC)   += cw_tty.o
 
 # Secure OS Mobicore Interface
+
 obj-$(CONFIG_MOBICORE_SUPPORT)  += tzic.o

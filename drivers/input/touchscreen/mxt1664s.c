@@ -1506,7 +1506,7 @@ static int  mxt_rest_init_touch(struct mxt_data *data)
 {
 	struct device *dev = &data->client->dev;
 	int i;
-	int ret;
+	int ret = 0;
 
 	/* tsp_family_id - 0xA2 : MXT-1446-S series */
 	if (data->info.family_id == 0xA2) {

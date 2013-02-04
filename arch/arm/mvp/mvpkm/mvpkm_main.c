@@ -1940,7 +1940,7 @@ err:
    }
 
    free_vm_area(vm->wspHkvaArea);
-   vm->wspHkvaArea = (HKVA)NULL;
+   vm->wspHkvaArea = NULL;
 
    return 0;
 }
@@ -2108,6 +2108,7 @@ SetupMonitor(MvpkmVM *vm)
       register uint32 r4 asm("r4") = hsctlr;
 
       asm volatile (
+         ".arch_extension sec\n"
          "smc 0"
          :
          : "r" (r0), "r" (r1), "r" (r2), "r" (r3), "r" (r4)

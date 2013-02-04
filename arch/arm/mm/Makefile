@@ -37,6 +37,7 @@ endif
 obj-$(CONFIG_MODULES)		+= proc-syms.o
 
 obj-$(CONFIG_ALIGNMENT_TRAP)	+= alignment.o
+CFLAGS_alignment.o		+= -Wno-error=maybe-uninitialized
 obj-$(CONFIG_HIGHMEM)		+= highmem.o
 
 obj-$(CONFIG_CPU_ABRT_NOMMU)	+= abort-nommu.o
