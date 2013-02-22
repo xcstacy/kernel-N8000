@@ -589,10 +589,12 @@ extern void mhl_hpd_handler(bool state);
 static int sii9234_detection_callback(void);
 static void sii9234_cancel_callback(void);
 static u8 sii9234_tmds_control(struct sii9234_data *sii9234, bool enable);
+#ifndef __MHL_NEW_CBUS_MSC_CMD__
 static bool cbus_command_request(struct sii9234_data *sii9234,
 				 enum cbus_command command,
 				 u8 offset, u8 data);
 static void cbus_command_response(struct sii9234_data *sii9234);
+#endif
 static irqreturn_t sii9234_irq_thread(int irq, void *data);
 
 #ifdef CONFIG_SAMSUNG_MHL_9290

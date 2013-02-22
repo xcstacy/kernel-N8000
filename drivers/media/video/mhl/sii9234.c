@@ -207,9 +207,11 @@ static u8 sii9234_tmds_control(struct sii9234_data *sii9234, bool enable);
 #ifdef __CONFIG_TMDS_OFFON_WORKAROUND__
 static u8 sii9234_tmds_control2(struct sii9234_data *sii9234, bool enable);
 #endif
+#ifndef __MHL_NEW_CBUS_MSC_CMD__
 static bool cbus_command_request(struct sii9234_data *sii9234,
 				 enum cbus_command command, u8 offset, u8 data);
 static void cbus_command_response(struct sii9234_data *sii9234);
+#endif
 static irqreturn_t sii9234_irq_thread(int irq, void *data);
 
 static void goto_d3(void);
@@ -375,7 +377,6 @@ void sii9234_mhl_hpd_handler_false(void)
 u8 mhl_onoff_ex(bool onoff)
 {
 	struct sii9234_data *sii9234 = dev_get_drvdata(sii9244_mhldev);
-	int ret;
 
 	pr_info("sii9234: %s(%s)\n", __func__, onoff ? "on" : "off");
 
@@ -417,7 +418,7 @@ u8 mhl_onoff_ex(bool onoff)
 
 #ifdef CONFIG_SAMSUNG_USE_11PIN_CONNECTOR
 #if !defined(CONFIG_MACH_P4NOTE)
-		ret = is_mhl_cable_connected();
+		int ret = is_mhl_cable_connected();
 #endif
 		if (ret == 1) {
 			pr_info("sii9234: %s() mhl still inserted, "
@@ -551,6 +552,7 @@ static int tpi_read_reg(struct sii9234_data *sii9234, unsigned int offset,
 	return 0;
 }
 
+/*
 static int hdmi_rx_read_reg(struct sii9234_data *sii9234, unsigned int offset,
 			    u8 *value)
 {
@@ -575,6 +577,7 @@ static int hdmi_rx_read_reg(struct sii9234_data *sii9234, unsigned int offset,
 
 	return 0;
 }
+*/
 
 static int hdmi_rx_write_reg(struct sii9234_data *sii9234, unsigned int offset,
 			     u8 value)
@@ -964,7 +967,7 @@ static void release_usb_id_switch_open(struct sii9234_data *sii9234)
 
 static bool cbus_ddc_abort_error(struct sii9234_data *sii9234)
 {
-	u8 val1, val2;
+	u8 val1 = 0, val2 = 0;
 
 	/* clear the ddc abort counter */
 	cbus_write_reg(sii9234, 0x29, 0xFF);
@@ -1174,14 +1177,16 @@ void mhl_path_enable(struct sii9234_data *sii9234, bool path_en)
 #endif
 }
 
+/*
 static void cbus_handle_wrt_burst_recd(struct sii9234_data *sii9234)
 {
 	pr_debug("sii9234: CBUS WRT_BURST_RECD\n");
 }
+*/
 
 static void cbus_handle_wrt_stat_recd(struct sii9234_data *sii9234)
 {
-	u8 status_reg0, status_reg1, value;
+	u8 status_reg0 = 0, status_reg1 = 0, value = 0;
 
 	pr_debug("sii9234: CBUS WRT_STAT_RECD\n");
 
@@ -1248,7 +1253,7 @@ static void cbus_handle_wrt_stat_recd(struct sii9234_data *sii9234)
 
 static void cbus_handle_set_int_recd(struct sii9234_data *sii9234)
 {
-	u8 intr_reg0, intr_reg1, value;
+	u8 intr_reg0 = 0, intr_reg1 = 0, value = 0;
 
 	/* read and clear interrupt */
 	cbus_read_reg(sii9234, CBUS_MHL_INTR_REG_0, &intr_reg0);
@@ -2783,6 +2788,7 @@ EXPORT_SYMBOL(sii9234_tmds_reset);
 
 #endif				/* CONFIG_SAMSUNG_MHL_9290 */
 
+#ifndef __MHL_NEW_CBUS_MSC_CMD__
 static void save_cbus_pkt_to_buffer(struct sii9234_data *sii9234)
 {
 	int index;
@@ -2955,6 +2961,7 @@ static void cbus_command_response(struct sii9234_data *sii9234)
 	if (offset)
 		cbus_command_request(sii9234, CBUS_READ_DEVCAP, offset, 0x00);
 }
+#endif
 
 #ifdef DEBUG_MHL
 static void cbus_command_response_dbg_msg(struct sii9234_data *sii9234,
@@ -2980,6 +2987,7 @@ static void cbus_command_response_dbg_msg(struct sii9234_data *sii9234,
 }
 #endif
 
+#ifndef __MHL_NEW_CBUS_MSC_CMD__
 static void cbus_command_response_all(struct sii9234_data *sii9234)
 {
 	u8 index;
@@ -3092,6 +3100,7 @@ static bool cbus_command_request(struct sii9234_data *sii9234,
 
 	return true;
 }
+#endif
 
 #ifdef __CONFIG_TMDS_OFFON_WORKAROUND__
 static u8 sii9234_tmds_control(struct sii9234_data *sii9234, bool enable)
@@ -3725,6 +3734,7 @@ static CLASS_ATTR(test_result, 0664, sysfs_check_mhl_command,
 		sysfs_check_factory_store);
 #endif /*__CONFIG_SS_FACTORY__*/
 
+/*
 static ssize_t sysfs_mhl_read_reg_show(struct device *dev,
 				       struct device_attribute *attr, char *buf)
 {
@@ -3803,6 +3813,7 @@ static ssize_t sysfs_mhl_read_reg_store(struct device *dev,
 static DEVICE_ATTR(mhl_read_reg, S_IRUGO | S_IWUSR,
 		   sysfs_mhl_read_reg_show, sysfs_mhl_read_reg_store);
 
+*/
 #ifdef __CONFIG_MHL_DEBUG__
 module_param_named(mhl_dbg_flag, mhl_dbg_flag, uint, 0644);
 #endif
@@ -4164,7 +4175,9 @@ err_extcon:
 #ifdef __CONFIG_MHL_SWING_LEVEL__
 	class_remove_file(sec_mhl, &class_attr_swing);
 #endif
+#ifdef __CONFIG_MHL_SWING_LEVEL__
  err_exit2b:
+#endif
 #ifdef __CONFIG_SS_FACTORY__
 	class_remove_file(sec_mhl, &class_attr_test_result);
 #endif
