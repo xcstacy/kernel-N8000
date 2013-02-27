@@ -1416,4 +1416,11 @@ config PADATA
 	depends on SMP
 	bool
 
+config IGNORE_PRESET_LPJ
+	bool "Ignore ATAGS-supplied lpj= value"
+	default y if MACH_P4NOTE
+	help
+	  Set this to always compute loops_per_jiffy value even if supplied via ATAGS
+	  Useful for overclocked devices where bootloader is unchangeable
+
 source "kernel/Kconfig.locks"

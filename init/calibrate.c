@@ -15,7 +15,9 @@ unsigned long lpj_fine;
 unsigned long preset_lpj;
 static int __init lpj_setup(char *str)
 {
+#ifndef CONFIG_IGNORE_PRESET_LPJ
 	preset_lpj = simple_strtoul(str,NULL,0);
+#endif
 	return 1;
 }
 
