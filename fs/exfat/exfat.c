@@ -559,7 +559,7 @@ INT32 ffsWriteFile(struct inode *inode, FILE_ID_T *fid, void *buffer, UINT64 cou
 {
 	INT32 modified = FALSE, offset, sec_offset, clu_offset;
 	INT32 num_clusters, num_alloc, num_alloced = (INT32) ~0;
-	UINT32 clu, last_clu, LogSector, sector;
+	UINT32 clu, last_clu, LogSector, sector = 0;
 	UINT64 oneblkwrite, write_bytes;
 	CHAIN_T new_clu;
 	TIMESTAMP_T tm;
@@ -767,7 +767,7 @@ err_out:
 INT32 ffsTruncateFile(struct inode *inode, UINT64 new_size)
 {
 	INT32 num_clusters;
-	UINT32 last_clu = CLUSTER_32(0), sector;
+	UINT32 last_clu = CLUSTER_32(0), sector = 0;
 	CHAIN_T clu;
 	TIMESTAMP_T tm;
 	DENTRY_T *ep, *ep2;
@@ -1020,7 +1020,7 @@ INT32 ffsRemoveFile(struct inode *inode, FILE_ID_T *fid)
 /* ffsSetAttr : set the attribute of a given file */
 INT32 ffsSetAttr(struct inode *inode, UINT32 attr)
 {
-	UINT32 type, sector;
+	UINT32 type, sector = 0;
 	DENTRY_T *ep;
 	struct super_block *sb = inode->i_sb;
 	FS_INFO_T *p_fs = &(EXFAT_SB(sb)->fs_info);
@@ -1299,7 +1299,7 @@ INT32 ffsSetStat(struct inode *inode, DIR_ENTRY_T *info)
 INT32 ffsMapCluster(struct inode *inode, INT32 clu_offset, UINT32 *clu)
 {
 	INT32 num_clusters, num_alloced, modified = FALSE;
-	UINT32 last_clu, sector;
+	UINT32 last_clu, sector = 0;
 	CHAIN_T new_clu;
 	DENTRY_T *ep;
 	ENTRY_SET_CACHE_T *es = NULL;
