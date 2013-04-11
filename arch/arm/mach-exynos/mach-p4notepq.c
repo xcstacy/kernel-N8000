@@ -2908,7 +2908,7 @@ static void __init exynos_init_reserve(void)
 	sec_debug_magic_init();
 }
 
-MACHINE_START(SMDK4412, "SMDK4x12")
+MACHINE_START(SMDK4412, "smdk4x12")
 	.boot_params	= S5P_PA_SDRAM + 0x100,
 	.init_irq	= exynos4_init_irq,
 	.map_io		= midas_map_io,
@@ -2920,7 +2920,7 @@ MACHINE_START(SMDK4412, "SMDK4x12")
 	.init_early	= &exynos_init_reserve,
 MACHINE_END
 
-MACHINE_START(SMDK4212, "SMDK4x12")
+MACHINE_START(SMDK4212, "smdk4x12")
 	.boot_params	= S5P_PA_SDRAM + 0x100,
 	.init_irq	= exynos4_init_irq,
 	.map_io		= midas_map_io,
