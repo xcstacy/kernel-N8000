@@ -456,6 +456,12 @@ config EXYNOS4_CPUFREQ
 	help
 	  Exynos4 cpufreq support
 
+config CPU_OVERCLOCK
+	bool "Enable CPU Overclocking option"
+	default n
+	help
+	  Exynos4 overclocking up to 1.80 GHz
+
 config EXYNOS5_CPUFREQ
 	def_bool y
 	depends on CPU_FREQ && ARCH_EXYNOS5
