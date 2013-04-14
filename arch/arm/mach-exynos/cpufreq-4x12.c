@@ -27,9 +27,9 @@
 #include <plat/cpu.h>
 
 #ifdef CONFIG_CPU_OVERCLOCK
-#define FREQ_SIZE	(L17)
+#define FREQ_SIZE	(L18)
 #else
-#define FREQ_SIZE	(L15)
+#define FREQ_SIZE	(L16)
 #endif
 
 #define CPUFREQ_LEVEL_END	(FREQ_SIZE + 1)
@@ -74,6 +74,7 @@ static struct cpufreq_frequency_table exynos4x12_freq_table[] = {
 	{L15, 300*1000},
 	{L16, 200*1000},
 	{L17, 100*1000},
+	{L18, 50*1000},
 #else
 	{L0, 1600*1000},
 	{L1, 1500*1000},
@@ -91,6 +92,7 @@ static struct cpufreq_frequency_table exynos4x12_freq_table[] = {
 	{L13, 300*1000},
 	{L14, 200*1000},
 	{L15, 100*1000},
+	{L16, 50*1000},
 #endif
 	{0, CPUFREQ_TABLE_END},
 };
@@ -209,6 +211,9 @@ static unsigned int clkdiv_cpu0_4412[CPUFREQ_LEVEL_END][8] = {
 
 	/* ARM L15: 100MHz */
 	{ 0, 1, 3, 0, 1, 1, 1, 0 },
+	
+	/* ARM L16: 50MHz */
+	{ 0, 1, 3, 0, 1, 1, 1, 0 },
 #else
 	/* ARM L0: 1600Mhz */
 	{ 0, 3, 7, 0, 6, 1, 7, 0 },
@@ -256,6 +261,9 @@ static unsigned int clkdiv_cpu0_4412[CPUFREQ_LEVEL_END][8] = {
 	{ 0, 1, 3, 0, 1, 1, 1, 0 },
 
 	/* ARM L15: 100MHz */
+	{ 0, 1, 3, 0, 1, 1, 1, 0 },
+
+	/* ARM L16: 50MHz */
 	{ 0, 1, 3, 0, 1, 1, 1, 0 },
 #endif
 };
@@ -368,6 +376,9 @@ static unsigned int clkdiv_cpu1_4412[CPUFREQ_LEVEL_END][3] = {
 
 	/* ARM L15: 100MHz */
 	{ 3, 0, 0 },
+
+	/* ARM L15: 50MHz */
+	{ 3, 0, 0 },
 #else
 	/* ARM L0: 1600MHz */
 	{ 6, 0, 7 },
@@ -415,6 +426,9 @@ static unsigned int clkdiv_cpu1_4412[CPUFREQ_LEVEL_END][3] = {
 	{ 3, 0, 0 },
 
 	/* ARM L15: 100MHz */
+	{ 3, 0, 0 },
+
+	/* ARM L15: 50MHz */
 	{ 3, 0, 0 },
 #endif
 };
@@ -474,6 +488,9 @@ static unsigned int exynos4x12_apll_pms_table[CPUFREQ_LEVEL_END] = {
 
 	/* APLL FOUT L14: 100MHz */
 	((100<<16)|(3<<8)|(0x3)),
+
+	/* APLL FOUT L15: 50MHz */
+	((100<<16)|(6<<8)|(0x3)),
 #else
 	/* APLL FOUT L0: 1600MHz */
 	((200<<16)|(3<<8)|(0x0)),
@@ -522,6 +539,9 @@ static unsigned int exynos4x12_apll_pms_table[CPUFREQ_LEVEL_END] = {
 
 	/* APLL FOUT L14: 100MHz */
 	((100<<16)|(3<<8)|(0x3)),
+
+	/* APLL FOUT L15: 50MHz */
+	((100<<16)|(6<<8)|(0x3)),
 #endif
 };
 
@@ -598,6 +618,7 @@ static const unsigned int asv_voltage_step_12_5[CPUFREQ_LEVEL_END][12] = {
 	{  950000,  937500,  925000,  900000,  925000,  900000,	 900000,  900000,  900000,  887500,  875000,  862500 },
 	{  925000,  912500,  900000,  900000,  900000,  900000,	 900000,  900000,  887500,  875000,  875000,  862500 },
 	{  900000,  900000,  900000,  900000,  900000,  900000,	 900000,  900000,  887500,  875000,  875000,  862500 },
+	{  900000,  900000,  900000,  900000,  900000,  900000,	 887500,  887500,  887500,  875000,  875000,  862500 },
 #else
 	{ 1400000, 1400000, 1400000, 1400000, 1387500, 1387500,	1375000, 1362500, 1350000, 1337500, 1325000, 1312500 },
 	{ 1387500, 1375000, 1362500, 1350000, 1337500, 1325000,	1312500, 1300000, 1287500, 1275000, 1262500, 1250000 },
@@ -615,6 +636,7 @@ static const unsigned int asv_voltage_step_12_5[CPUFREQ_LEVEL_END][12] = {
 	{  950000,  937500,  925000,  900000,  925000,  900000,	 900000,  900000,  900000,  887500,  875000,  862500 },
 	{  925000,  912500,  900000,  900000,  900000,  900000,	 900000,  900000,  887500,  875000,  875000,  862500 },
 	{  900000,  900000,  900000,  900000,  900000,  900000,	 900000,  900000,  887500,  875000,  875000,  862500 },
+	{  900000,  900000,  900000,  900000,  900000,  900000,	 887500,  887500,  887500,  875000,  875000,  862500 },
 #endif
 };
 #endif
