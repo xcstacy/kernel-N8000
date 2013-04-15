@@ -841,6 +841,7 @@ static void exynos4x12_set_frequency(unsigned int old_index,
 		if (new_index == L18)
 #else
 		if (new_index == L16)
+#endif
 			exynos4x12_set_abb_member(ABB_ARM, ABB_MODE_100V);
 		else
 			exynos4x12_set_abb_member(ABB_ARM, ABB_MODE_130V);
