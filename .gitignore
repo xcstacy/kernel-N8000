@@ -54,10 +54,15 @@ modules.builtin
 #
 # Generated include files
 #
+include/asm
+include/asm-arm
 include/config
+include/linux/autoconf.h
+include/linux/compile.h
 include/linux/version.h
+include/linux/utsrelease.h
+include/linux/bounds.h
 include/generated
-arch/*/include/generated
 
 # stgit generated dirs
 patches-*
@@ -79,3 +84,13 @@ GTAGS
 *.orig
 *~
 \#*#
+_t32
+_tool
+
+build_kernel_n8000.sh
+arch/arm/boot/compressed/ashldi3.S
+arch/arm/boot/compressed/piggy.xzkern
+
+Module.symvers
+
+boot.img
