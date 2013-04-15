@@ -24,7 +24,6 @@ enum migrate_mode {
 
 extern void putback_lru_pages(struct list_head *l);
 extern int migrate_page(struct address_space *,
-<<<<<<< HEAD
 			struct page *, struct page *, enum migrate_mode);
 #ifndef CONFIG_DMA_CMA		
 extern int migrate_pages(struct list_head *l, new_page_t x,
