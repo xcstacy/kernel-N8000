@@ -43,7 +43,8 @@ static ssize_t power_supply_show_property(struct device *dev,
 					  char *buf) {
 	static char *type_text[] = {
 		"Battery", "UPS", "Mains", "USB",
-		"USB_DCP", "USB_CDP", "USB_ACA"
+		"USB_DCP", "USB_CDP", "USB_ACA", "OTG",
+		"DOCK", "MISC", "WIRELESS", "UNKNOWN"
 	};
 	static char *status_text[] = {
 		"Unknown", "Charging", "Discharging", "Not charging", "Full"
@@ -158,6 +159,9 @@ static struct device_attribute power_supply_attrs[] = {
 	POWER_SUPPLY_ATTR(energy_now),
 	POWER_SUPPLY_ATTR(energy_avg),
 	POWER_SUPPLY_ATTR(capacity),
+#ifdef CONFIG_SLP
+	POWER_SUPPLY_ATTR(capacity_raw),
+#endif
 	POWER_SUPPLY_ATTR(capacity_level),
 	POWER_SUPPLY_ATTR(temp),
 	POWER_SUPPLY_ATTR(temp_ambient),
