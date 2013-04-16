@@ -127,6 +127,12 @@ config CPU_FREQ_DEFAULT_GOV_SAVAGEDZEN
 	bool "savagedzen"
 	select CPU_FREQ_GOV_SAVAGEDZEN
 
+config CPU_FREQ_DEFAULT_GOV_INTERACTIVEX
+	bool "interactiveX"
+	select CPU_FREQ_GOV_INTERACTIVEX
+	help
+	  InteractiveX cpu hotplug suppport.
+
 endchoice
 
 config CPU_FREQ_GOV_PERFORMANCE
@@ -272,6 +278,9 @@ config CPU_FREQ_GOV_PEGASUSQ
 
 config CPU_FREQ_GOV_SAVAGEDZEN
 	tristate "'savagedzen' cpufreq policy governor"
+
+config CPU_FREQ_GOV_INTERACTIVEX
+	tristate "'interactiveX' cpufreq policy governor - from lean kernel"
 
 config CPU_FREQ_GOV_SLP
 	tristate "'slp' cpufreq policy governor"
