@@ -64,7 +64,9 @@ int exynos_verify_speed(struct cpufreq_policy *policy)
 
 unsigned int exynos_getspeed(unsigned int cpu)
 {
-	return clk_get_rate(exynos_info->cpu_clk) / 1000;
+	unsigned int ret = clk_get_rate(exynos_info->cpu_clk) / 1000;
+	if(ret == 1704000) ret = 1700000;
+	return ret;
 }
 
 static unsigned int exynos_get_safe_armvolt(unsigned int old_index, unsigned int new_index)
