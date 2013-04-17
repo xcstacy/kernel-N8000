@@ -123,9 +123,9 @@ config CPU_FREQ_DEFAULT_GOV_PEGASUSQ
 	bool "pegasusq"
 	select CPU_FREQ_GOV_PEGASUSQ
 
-config CPU_FREQ_DEFAULT_GOV_SAVAGEDZEN
-	bool "savagedzen"
-	select CPU_FREQ_GOV_SAVAGEDZEN
+config CPU_FREQ_DEFAULT_GOV_SMARTASSH3
+	bool "SMARTASSH3"
+	select CPU_FREQ_GOV_SMARTASSH3
 
 config CPU_FREQ_DEFAULT_GOV_LULZACTIVEQ
 	bool "interactiveX"
@@ -276,8 +276,8 @@ config CPU_FREQ_GOV_ADAPTIVE
 config CPU_FREQ_GOV_PEGASUSQ
 	tristate "'pegasusq' cpufreq policy governor"
 
-config CPU_FREQ_GOV_SAVAGEDZEN
-	tristate "'savagedzen' cpufreq policy governor"
+config CPU_FREQ_GOV_SMARTASSH3
+	tristate "'smartassH3' cpufreq policy governor"
 
 config CPU_FREQ_GOV_LULZACTIVEQ
 	tristate "'lulzactiveq' cpufreq policy governor - from GM"
