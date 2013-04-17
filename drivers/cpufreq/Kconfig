@@ -128,7 +128,7 @@ config CPU_FREQ_DEFAULT_GOV_SMARTASSH3
 	select CPU_FREQ_GOV_SMARTASSH3
 
 config CPU_FREQ_DEFAULT_GOV_LULZACTIVEQ
-	bool "interactiveX"
+	bool "lulzactiveq"
 	select CPU_FREQ_GOV_LULZACTIVEQ
 	help
 	  Lulzactiveq by GM.
