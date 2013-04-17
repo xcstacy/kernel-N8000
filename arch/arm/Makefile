@@ -53,6 +53,23 @@ endif
 
 comma = ,
 
+# Turn on some optimizations
+KBUILD_CFLAGS  += $(call cc-option,-O3)
+KBUILD_CFLAGS  += $(call cc-option,--param l2-cache-size=1024)
+KBUILD_CFLAGS  += $(call cc-option,--param l1-cache-size=32)
+KBUILD_CFLAGS  += $(call cc-option,-fgraphite-identity)
+KBUILD_CFLAGS  += $(call cc-option,-floop-block)
+KBUILD_CFLAGS  += $(call cc-option,-floop-strip-mine)
+KBUILD_CFLAGS  += $(call cc-option,-fmodulo-sched)
+KBUILD_CFLAGS  += $(call cc-option,-ftree-loop-distribution)
+KBUILD_CFLAGS  += $(call cc-option,-fsingle-precision-constant)
+KBUILD_CFLAGS  += $(call cc-option,-fgcse-lm)
+KBUILD_CFLAGS  += $(call cc-option,-fgcse-sm)
+KBUILD_CFLAGS  += $(call cc-option,-fsched-spec-load)
+KBUILD_CFLAGS  += $(call cc-option,-fforce-addr)
+KBUILD_CFLAGS  += $(call cc-option,-fmodulo-sched-allow-regmoves)
+KBUILD_CFLAGS  += $(call cc-option,-fno-tree-vectorize)
+
 # This selects which instruction set is used.
 # Note that GCC does not numerically define an architecture version
 # macro, but instead defines a whole series of macros which makes
@@ -91,6 +108,13 @@ tune-$(CONFIG_CPU_FEROCEON)	:=$(call cc-option,-mtune=marvell-f,-mtune=xscale)
 tune-$(CONFIG_CPU_V6)		:=$(call cc-option,-mtune=arm1136j-s,-mtune=strongarm)
 tune-$(CONFIG_CPU_V6K)		:=$(call cc-option,-mtune=arm1136j-s,-mtune=strongarm)
 
+tune-y		:= $(call cc-option,-mcpu=cortex-a9)
+tune-y		+= $(call cc-option,-mtune=cortex-a9)
+tune-y		+= $(call cc-option,-mfpu=neon)
+
+tune-y		+= $(call cc-option,-Wa$(comma)-march=armv7-a)
+tune-y		+= $(call cc-option,-Wa$(comma)-mcpu=cortex-a9)
+
 ifeq ($(CONFIG_AEABI),y)
 CFLAGS_ABI	:=-mabi=aapcs-linux -mno-thumb-interwork
 else
@@ -115,6 +139,7 @@ endif
 # Need -Uarm for gcc < 3.x
 KBUILD_CFLAGS	+=$(CFLAGS_ABI) $(CFLAGS_THUMB2) $(arch-y) $(tune-y) $(call cc-option,-mshort-load-bytes,$(call cc-option,-malignment-traps,)) -msoft-float -Uarm
 KBUILD_AFLAGS	+=$(CFLAGS_ABI) $(AFLAGS_THUMB2) $(arch-y) $(tune-y) -include asm/unified.h -msoft-float
+KBUILD_AFLAGS	+=$(call cc-option,-Wa$(comma)-mfpu=neon)
 
 CHECKFLAGS	+= -D__arm__
 
