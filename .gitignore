@@ -87,6 +87,7 @@ GTAGS
 _t32
 _tool
 
+build_kernel_n8013.sh
 build_kernel_n8000.sh
 arch/arm/boot/compressed/ashldi3.S
 arch/arm/boot/compressed/piggy.xzkern
