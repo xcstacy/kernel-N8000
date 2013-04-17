@@ -294,7 +294,7 @@ static void cpufreq_savagedzen_freq_change_time_work(struct work_struct *work)
         struct cpufreq_policy *policy;
         unsigned int relation = CPUFREQ_RELATION_L;
         cpumask_t tmp_mask = work_cpumask;
-        for_each_cpu(cpu, tmp_mask) {
+        for_each_cpu(cpu, &tmp_mask) {
                 this_savagedzen = &per_cpu(savagedzen_info, cpu);
                 policy = this_savagedzen->cur_policy;
                 cpu_load = this_savagedzen->cur_cpu_load;
