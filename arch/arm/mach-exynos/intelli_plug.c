@@ -21,6 +21,7 @@
 #include <linux/mutex.h>
 #include <linux/module.h>
 #include <linux/rq_stats.h>
+#include <linux/cpufreq.h>
 
 #define INTELLI_PLUG_MAJOR_VERSION	1
 #define INTELLI_PLUG_MINOR_VERSION	5
@@ -40,7 +41,7 @@ static DEFINE_MUTEX(intelli_plug_mutex);
 
 struct delayed_work intelli_plug_work;
 
-static unsigned int intelli_plug_active = 0;
+static unsigned int intelli_plug_active = 1;
 module_param(intelli_plug_active, uint, 0644);
 
 static unsigned int eco_mode_active = 0;
@@ -48,6 +49,7 @@ module_param(eco_mode_active, uint, 0644);
 
 static unsigned int persist_count = 0;
 static bool suspended = false;
+static bool own_hotplug;
 
 #define NR_FSHIFT	3
 static unsigned int nr_fshift = NR_FSHIFT;
@@ -162,7 +164,7 @@ static void __cpuinit intelli_plug_work_fn(struct work_struct *work)
 
 	int decision = 0;
 
-	if (intelli_plug_active == 1) {
+	if (intelli_plug_active == 1 && !own_hotplug) {
 		nr_run_stat = calculate_thread_stats();
 		//pr_info("nr_run_stat: %u\n", nr_run_stat);
 		rq_stat = rq_info.rq_avg;
@@ -241,6 +243,36 @@ static void __cpuinit intelli_plug_work_fn(struct work_struct *work)
 		msecs_to_jiffies(DEF_SAMPLING_MS));
 }
 
+static int intelli_plug_cpufreq_policy_notifier_call(struct notifier_block *this,
+        unsigned long code, void *data)
+{
+  struct cpufreq_policy *policy = data;
+
+	switch (code) {
+	case CPUFREQ_ADJUST:
+		if (
+			(!strnicmp(policy->governor->name, "pegasusq", CPUFREQ_NAME_LEN)) ||
+			(!strnicmp(policy->governor->name, "hotplug", CPUFREQ_NAME_LEN)) ||
+			(!strnicmp(policy->governor->name, "lulzactiveq", CPUFREQ_NAME_LEN))
+			) 
+		{
+		own_hotplug = true;
+		} else {
+		own_hotplug = false;
+		}
+		break;
+	case CPUFREQ_INCOMPATIBLE:
+	case CPUFREQ_NOTIFY:
+	default:
+		break;
+	}
+
+	return NOTIFY_DONE;
+}
+static struct notifier_block intelli_plug_cpufreq_policy_notifier = {
+	.notifier_call = intelli_plug_cpufreq_policy_notifier_call,
+};
+
 #ifdef CONFIG_HAS_EARLYSUSPEND
 static void intelli_plug_early_suspend(struct early_suspend *handler)
 {
@@ -312,6 +344,9 @@ int __init intelli_plug_init(void)
 #ifdef CONFIG_HAS_EARLYSUSPEND
 	register_early_suspend(&intelli_plug_early_suspend_struct_driver);
 #endif
+
+  	cpufreq_register_notifier(&intelli_plug_cpufreq_policy_notifier,
+            CPUFREQ_POLICY_NOTIFIER);
 	return 0;
 }
 
