@@ -245,8 +245,8 @@ CONFIG_SHELL := $(shell if [ -x "$$BASH" ]; then echo $$BASH; \
 
 HOSTCC       = gcc
 HOSTCXX      = g++
-HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer
-HOSTCXXFLAGS = -O2
+HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -O3 -fomit-frame-pointer
+HOSTCXXFLAGS = -O3
 
 # Decide whether to build built-in, modular, or both.
 # Normally, just do built-in.
@@ -369,11 +369,11 @@ KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -Werror-implicit-function-declaration \
 		   -Wno-format-security \
 		   -fno-delete-null-pointer-checks -mno-unaligned-access \
-		   -pipe -ftree-vectorize -fgcse-after-reload\
-		   -ffast-math -floop-block -funsafe-math-optimizations \
-		   -mfpu=neon-vfpv4 -fipa-cp-clone \
-		   -march=armv7-a -floop-strip-mine -funswitch-loops \
-		   -mtune=cortex-a9 -O2
+		   -mcpu=cortex-a9 -march=armv7-a -mfpu=neon-vfpv4 -funsafe-math-optimizations \
+		   -pipe -ftree-vectorize -fgcse-after-reload \
+		   -ffast-math -funswitch-loops -floop-interchange \
+		   -fipa-cp-clone -fsingle-precision-constant -fpredictive-commoning \
+		   -floop-strip-mine -floop-block -O3 
 KBUILD_AFLAGS_KERNEL :=
 KBUILD_CFLAGS_KERNEL :=
 KBUILD_AFLAGS   := -D__ASSEMBLY__
