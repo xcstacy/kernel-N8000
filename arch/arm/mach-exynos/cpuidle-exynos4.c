@@ -773,7 +773,7 @@ static struct cpuidle_state exynos4_cpuidle_set[] = {
 #ifdef CONFIG_EXYNOS4_LOWPWR_IDLE
 	[1] = {
 		.enter			= exynos4_enter_lowpower,
-		.exit_latency		= 300,
+		.exit_latency		= 100,
 		.target_residency	= 10000,
 		.flags			= CPUIDLE_FLAG_TIME_VALID,
 		.name			= "LOW_POWER",
