@@ -1004,7 +1004,6 @@ static int __init cpufreq_interactive_init(void)
 
 	spin_lock_init(&up_cpumask_lock);
 	spin_lock_init(&down_cpumask_lock);
-	spin_lock_init(&above_hispeed_delay_lock);
 	mutex_init(&set_speed_lock);
 
 	/* Kick the kthread to idle */
