@@ -261,45 +261,6 @@ config CPU_FREQ_GOV_CONSERVATIVE
 
 	  If in doubt, say N.
 
-<<<<<<< HEAD
-=======
-config CPU_FREQ_GOV_ZENX
-	tristate "'zenx' cpufreq governor"
-	depends on CPU_FREQ
-	help
-	  'zenx' - an interactive-based governor
-
-	  This governor provides full CPU hotplugging support
-	  based on average CPU load across all CPUs.
-
-	  For details, take a look at linux/Documentation/cpu-freq.
-
-	  If in doubt, say N
-
-config CPU_FREQ_GOV_INTELLIDEMAND
-	tristate "'intellidemand' cpufreq governor"
-	depends on CPU_FREQ
-	---help---
-	  'intellidemand' - an intelligent ondemand governor
-
-config CPU_FREQ_GOV_LAZY
-	tristate "'lazy' cpufreq governor"
-		depends on CPU_FREQ
-
-config CPU_FREQ_GOV_LULZACTIVE
-	tristate "'lulzactive' cpufreq governor"
-	depends on CPU_FREQ
-	---help---
-	  'lulzactive' - a new interactive governor by Tegrak!
-
-	  If in doubt, say N.
-
-config CPU_FREQ_GOV_LULZACTIVEQ
-	tristate "'lulzactiveq' cpufreq governor"
-	depends on CPU_FREQ
-	---help---
-	  'lulzactiveq' - NEW hotplug mechanism added in lulzactive
-
 config CPU_FREQ_GOV_ZZMOOVE
 	tristate "'zzmoove' cpufreq governor"
 	depends on CPU_FREQ
@@ -310,25 +271,6 @@ config CPU_FREQ_GOV_ZZMOOVE
 
 	  If in doubt, say N.
 
-config CPU_FREQ_GOV_WHEATLEY
-	tristate "'wheatley' cpufreq governor"
-	depends on CPU_FREQ
-
-config CPU_FREQ_GOV_SCARY
-	tristate "'scary' cpufreq governor"
-	depends on CPU_FREQ
-	---help---
-	  scary - a governor for cabbages
-
-	  If in doubt, say N.
-
-config CPU_FREQ_GOV_SLEEPY
-	tristate "'sleepy' cpufreq governor"
-	depends on CPU_FREQ
-	---help---
-          'sleepy' - an "ondemandx" based tweaked, smart and smooth optimized governor!
-
->>>>>>> 64bea1b... cpufreq: zzmoove governor
 config CPU_FREQ_GOV_ADAPTIVE
 	tristate "'adaptive' cpufreq policy governor"
 	help
