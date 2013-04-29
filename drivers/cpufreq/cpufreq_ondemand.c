@@ -716,7 +716,7 @@ static void dbs_check_cpu(struct cpu_dbs_info_s *this_dbs_info)
 			max_load_freq = load_freq;
 		
 		if (tick > (HZ*5))
-			franco_hotplug(this_dbs_info, j, cur_load);
+			franco_hotplug(this_dbs_info, j, load);
 	}
 	/* calculate the scaled load across CPU */
 	load_at_max_freq = (cur_load * policy->cur)/policy->cpuinfo.max_freq;
