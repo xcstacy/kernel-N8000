@@ -298,7 +298,7 @@ static struct dbs_tuners {
  * zzmoove v0.4 - added fast scaling columns to frequency table
  */
 static int mn_freqs[16][5]={
-    {1700000,1664000,1500000, 1664000, 1300000},
+    {1700000,1700000,1500000, 1664000, 1300000},
     {1500000,1640000,1400000, 1600000, 1200000},
     {1400000,1400000,1300000, 1600000, 1100000},
     {1300000,1400000,1200000, 1400000, 1000000},
@@ -313,7 +313,7 @@ static int mn_freqs[16][5]={
     { 400000, 500000, 200000,  600000,  200000},
     { 300000, 400000, 200000,  400000,  200000},
     { 200000, 300000, 200000,  400000,  200000},
-    { 100000, 50000, 200000,  100000,  50000}
+    { 50000, 50000, 200000,  100000,  50000}
 };
 
 /*
@@ -322,7 +322,7 @@ static int mn_freqs[16][5]={
  * zzmoove v0.4 - added fast scaling columns to frequency table
  */
 static int mn_freqs_power[16][5]={
-    {1700000,1600000,1500000, 1600000, 1200000},
+    {1700000,1664000,1500000, 1600000, 1200000},
     {1500000,1600000,1400000, 1600000, 1100000},
     {1400000,1600000,1300000, 1600000, 1000000},
     {1300000,1500000,1200000, 1600000,  900000},
@@ -337,15 +337,15 @@ static int mn_freqs_power[16][5]={
     { 400000, 600000, 300000,  800000,  200000},
     { 300000, 500000, 200000,  600000,  200000},
     { 200000, 400000, 200000,  600000,  200000},
-    { 200000, 100000, 300000,  200000,  50000}
+    { 100000, 100000, 300000,  200000,  50000}
 };
 
 static int mn_get_next_freq(unsigned int curfreq, unsigned int updown, unsigned int load) {
-    int i=0;
+    int i=0,max_level = 16;
 
     if (load < dbs_tuners_ins.smooth_up)
     {
-	    for(i = 0; i < 16 ; i++)
+	    for(i = 0; i < max_level ; i++)
     	    {
         	if(curfreq == mn_freqs[i][MN_FREQ])
         	    return mn_freqs[i][updown]; // updown 1|2
@@ -353,7 +353,7 @@ static int mn_get_next_freq(unsigned int curfreq, unsigned int updown, unsigned 
     }
     else
     {
-	    for(i = 0; i < 16; i++)
+	    for(i = 0; i < max_level; i++)
     	    {
         	if(curfreq == mn_freqs_power[i][MN_FREQ])
             	    return mn_freqs_power[i][updown]; // updown 1|2
@@ -806,13 +806,13 @@ static ssize_t store_freq_limit(struct kobject *a,
 	unsigned int input;
 	int ret;
 	int i=0;
-	int valid_freq[20]={0, 1700000, 1664000, 1600000, 1500000, 1400000, 1300000, 1200000, 1100000, 1000000, 900000, 800000, 700000, 600000, 500000, 400000, 300000, 200000, 100000, 50000};
+	int valid_freq[18]={0, 1600000, 1500000, 1400000, 1300000, 1200000, 1100000, 1000000, 900000, 800000, 700000, 600000, 500000, 400000, 300000, 200000, 100000, 50000};
 	ret = sscanf(buf, "%u", &input);
 
-	if (ret != 1 || input > 1700000 || (input < 50000 && input != 0))
+	if (ret != 1 || input > 1400000 || (input < 50000 && input != 0))
 		return -EINVAL;
         
-        for (i=0; i<20; i++) {
+        for (i=0; i<18; i++) {
 	    if (input == valid_freq[i]) {
 		dbs_tuners_ins.freq_limit = input;
 	    return count;
@@ -831,13 +831,13 @@ static ssize_t store_freq_limit_sleep(struct kobject *a,
 	unsigned int input;
 	int ret;
 	int i=0;
-	int valid_freq[20]={0, 1700000, 1664000, 1600000, 1500000, 1400000, 1300000, 1200000, 1100000, 1000000, 900000, 800000, 700000, 600000, 500000, 400000, 300000, 200000, 100000, 50000};
+	int valid_freq[18]={0, 1600000, 1500000, 1400000, 1300000, 1200000, 1100000, 1000000, 900000, 800000, 700000, 600000, 500000, 400000, 300000, 200000, 100000, 50000};
 	ret = sscanf(buf, "%u", &input);
 
-	if (ret != 1 || input > 1700000 || (input < 50000 && input != 0))
+	if (ret != 1 || input > 1400000 || (input < 50000 && input != 0))
 		return -EINVAL;
 	
-        for (i=0; i<20; i++) {
+        for (i=0; i<18; i++) {
 	    if (input == valid_freq[i]) {
 		dbs_tuners_ins.freq_limit_sleep = input;
 	    return count;
