@@ -470,7 +470,7 @@ static struct regulator_init_data ldo24_pq11_init_data = {
 static struct regulator_init_data max77686_buck1_data = {
 	.constraints = {
 		.name = "vdd_mif range",
-		.min_uV = 850000,
+		.min_uV = 600000,
 #ifdef CONFIG_SLP
 		.max_uV = 1100000,
 #else
@@ -487,7 +487,7 @@ static struct regulator_init_data max77686_buck1_data = {
 static struct regulator_init_data max77686_buck2_data = {
 	.constraints = {
 		.name = "vdd_arm range",
-		.min_uV = 850000,
+		.min_uV = 600000,
 		.max_uV = 1500000,
 		.apply_uV = 1,
 		.always_on = 1,
@@ -501,7 +501,7 @@ static struct regulator_init_data max77686_buck2_data = {
 static struct regulator_init_data max77686_buck3_data = {
 	.constraints = {
 		.name = "vdd_int range",
-		.min_uV = 850000,
+		.min_uV = 600000,
 #ifdef CONFIG_SLP
 		.max_uV = 1150000,
 #else
@@ -518,11 +518,11 @@ static struct regulator_init_data max77686_buck3_data = {
 static struct regulator_init_data max77686_buck4_data = {
 	.constraints = {
 		.name = "vdd_g3d range",
-		.min_uV = 850000,
+		.min_uV = 600000,
 #ifdef CONFIG_SLP
 		.max_uV = 1100000,
 #else
-		.max_uV = 1075000,
+		.max_uV = 1400000,
 #endif
 		.boot_on = 1,
 		.valid_ops_mask = REGULATOR_CHANGE_VOLTAGE |
@@ -932,8 +932,8 @@ REGULATOR_INIT(ldo28, "3_TOUCH_1.8V", 1800000, 1800000, 0,
 static struct regulator_init_data s5m8767_buck1_data = {
 	.constraints = {
 		.name = "vdd_mif range",
-		.min_uV = 600000,
-		.max_uV = 1500000,
+		.min_uV = 850000,
+		.max_uV = 1100000,
 		.boot_on = 1,
 		.valid_ops_mask = REGULATOR_CHANGE_VOLTAGE,
 	},
@@ -944,7 +944,7 @@ static struct regulator_init_data s5m8767_buck1_data = {
 static struct regulator_init_data s5m8767_buck2_data = {
 	.constraints = {
 		.name = "vdd_arm range",
-		.min_uV = 600000,
+		.min_uV = 850000,
 		.max_uV = 1500000,
 		.apply_uV = 1,
 		.boot_on = 1,
@@ -957,8 +957,8 @@ static struct regulator_init_data s5m8767_buck2_data = {
 static struct regulator_init_data s5m8767_buck3_data = {
 	.constraints = {
 		.name = "vdd_int range",
-		.min_uV = 600000,
-		.max_uV = 1500000,
+		.min_uV = 850000,
+		.max_uV = 1300000,
 		.boot_on = 1,
 		.valid_ops_mask = REGULATOR_CHANGE_VOLTAGE,
 	},
@@ -969,8 +969,8 @@ static struct regulator_init_data s5m8767_buck3_data = {
 static struct regulator_init_data s5m8767_buck4_data = {
 	.constraints = {
 		.name = "vdd_g3d range",
-		.min_uV = 600000,
-		.max_uV = 1500000,
+		.min_uV = 850000,
+		.max_uV = 1150000,
 		.boot_on = 1,
 		.valid_ops_mask = REGULATOR_CHANGE_VOLTAGE |
 		REGULATOR_CHANGE_STATUS,
